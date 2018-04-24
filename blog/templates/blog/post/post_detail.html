@@ -8,5 +8,15 @@
 	<p>Written by{{post.author}} on {{post.published}}</p>
 	<hr/>
 	{{post.content|linebreaks}}
+	<hr/>
+	<h1> Leave a Comment </h1>
+	<p> Total number of Comments {{post.comments.count}} </p>
+	<a href="{% url 'blog:add_comment' slug=post.slug %}">Leave a Comment</a>
+	{% for comment in post.comments.all %}
+		<p><b>{{comment.user}}</b> {{comment.created}}</p>
+		<p>{{comment.body}}</p>
+		{% empty %}
+		<p>There is no comments</p>
+	{% endfor %}
 
 {% endblock %}
