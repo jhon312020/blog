@@ -1,14 +1,27 @@
+
 {% extends 'blog/base.html'	 %}
+
+{% block description %} Recent posts in {{category.name}} {% endblock %}
 
 {% block title %} {{category.name}} {% endblock %}
 
 {% block content %}
-	<h1>{{ category.name }}</h1>
-	{% for post in posts %}
-		<h2><a href={{post.get_absolute_url}}>{{post.title}}</a></h2>
-		<p>Written by{{post.author}} on {{post.published}}</p>
-		<hr/>
-		{{post.content|truncatewords:40|linebreaks}}
-	{% endfor %}
+	<div class="row">
+		<div class="col-md-8">
+			<div class="border-bottom">
+				<h1> Recent Posts in {{category.name}}</h1>
+			</div>
+			{% for post in posts %}
+				<h2><a href={{post.get_absolute_url}}>{{post.title}}</a></h2>
+				<small>Written by {{post.author}} on {{post.published}}</small>
+				{{post.content|truncatewords:40|linebreaks}}
+			{% endfor %}
+		</div>
+		<div class="col-md-4">
+			<div class="border-bottom">
+				<h1>Side Bar</h1>
+			</div>
+		</div>
+	</div>
 
 {% endblock %}

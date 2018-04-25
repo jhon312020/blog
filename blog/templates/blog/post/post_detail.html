@@ -1,22 +1,34 @@
 {% extends 'blog/base.html'	 %}
 
+{% block description %} Recent posts in {{category.name}} {% endblock %} 
+
 {% block title %} {{post.seo_title}} {% endblock %}
 
 {% block content %}
-
-	<h2>{{post.title}}</h2>
-	<p>Written by{{post.author}} on {{post.published}}</p>
-	<hr/>
-	{{post.content|linebreaks}}
-	<hr/>
-	<h1> Leave a Comment </h1>
-	<p> Total number of Comments {{post.comments.count}} </p>
-	<a href="{% url 'blog:add_comment' slug=post.slug %}">Leave a Comment</a>
-	{% for comment in post.comments.all %}
-		<p><b>{{comment.user}}</b> {{comment.created}}</p>
-		<p>{{comment.body}}</p>
-		{% empty %}
-		<p>There is no comments</p>
-	{% endfor %}
-
+	<div class="row">
+		<div class="col-md-8">
+			<div class="page-header">
+				<h1>{{post.title}}</h1>
+			</div>
+			<hr/>
+			<small>Written by {{post.author}} on {{post.published}}</small>
+			{{post.content|linebreaks}}
+			<div class="border-bottom">
+				<h1> Leave a Comment <small>Total number of Comments {{post.comments.count}}</small> </h1>
+			</div>
+			<p class="text-center"> <button type="button" class="btn btn-light"> <a href="{% url 'blog:add_comment' slug=post.slug %}">Leave a Comment</a> </button> </p>
+			
+			{% for comment in post.comments.all %}
+				<div class="card">
+					<div class="card-header"><b>{{comment.user}}</b> <span class="float-right"> <small>{{comment.created}}</small></span></div>
+						<div class="card-body">	
+							{{comment.body}}
+						</div>
+				</div>
+				<br/>
+				{% empty %}
+				<p>There is no comments</p>
+			{% endfor %}
+		</div>
+	</div>
 {% endblock %}
