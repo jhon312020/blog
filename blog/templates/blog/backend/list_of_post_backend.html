@@ -1,0 +1,41 @@
+{% extends 'blog/base.html' %}
+
+{% block title %} List of posts from Backend {% endblock %}
+
+{% block content %}
+	<div class="responsive">
+		<table class="table table-hover">
+			<tr>
+				<th>Title</th>
+				<th>Slug</th>
+				<th>Author</th>
+				<th>Published</th>
+				<th>status</th>
+				<th>Edit</th>
+			</tr>
+			{% for post in posts %}
+				{% if post.status == 'draft' %}
+					<tr class="table-danger">
+						<td>{{ post.title }}</td>
+						<td>{{ post.slug }}</td>
+						<td>{{ post.author }}</td>
+						<td>{{ post.published }}</td>
+						<td>{{ post.status }}</td>
+						<td><a href="{% url 'blog:edit_post' slug=post.slug %}" class="btn btn-primary">Edit</a></td>
+					</tr>
+				{% else %}
+					<tr>
+						<td>{{ post.title }}</td>
+						<td>{{ post.slug }}</td>
+						<td>{{ post.author }}</td>
+						<td>{{ post.published }}</td>
+						<td>{{ post.status }}</td>
+						<td><a href="{% url 'blog:edit_post' slug=post.slug %}" class="btn btn-primary">Edit</a></td>
+					</tr>
+				{% endif %}
+			{% endfor %}
+		</table>
+		{% include 'blog/paginator.html' with page=posts %}
+	</div>
+
+{% endblock %}
