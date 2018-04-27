@@ -12,6 +12,7 @@
 				<th>Published</th>
 				<th>status</th>
 				<th>Edit</th>
+				<th>Delete</th>
 			</tr>
 			{% for post in posts %}
 				{% if post.status == 'draft' %}
@@ -22,6 +23,7 @@
 						<td>{{ post.published }}</td>
 						<td>{{ post.status }}</td>
 						<td><a href="{% url 'blog:edit_post' slug=post.slug %}" class="btn btn-primary">Edit</a></td>
+						<td><a href="{% url 'blog:delete_post' slug=post.slug %}" class="btn btn-danger">Delete</a></td>
 					</tr>
 				{% else %}
 					<tr>
@@ -31,6 +33,7 @@
 						<td>{{ post.published }}</td>
 						<td>{{ post.status }}</td>
 						<td><a href="{% url 'blog:edit_post' slug=post.slug %}" class="btn btn-primary">Edit</a></td>
+						<td><a href="{% url 'blog:delete_post' slug=post.slug %}" class="btn btn-danger">Delete</a></td>
 					</tr>
 				{% endif %}
 			{% endfor %}
