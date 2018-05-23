@@ -1,0 +1,31 @@
+{% extends 'todoapp/base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %} Todo Add {% endblock %}
+
+{% block content %}
+	<div class="row">
+		<div class="col-md-6">
+			<div class="card">
+			  <div class="card-header">
+			    <div class="row">
+			    	<div class="col-md-5">
+			    		Add Todo
+			    	</div>
+			    	<div class="col-md-7 float-right">
+			    		<a class="btn btn-primary float-right" href="{% url 'todoapp:list_of_todos' %}">Cancel</a>
+			    	</div>
+			    </div>
+			    
+			  </div>
+			  <div class="card-body">
+			    <form method="POST" class="post-form">{% csrf_token %}
+						{{ form|crispy }}
+						<button type="submit" class="btn btn-success float-right">Submit</button>
+					</form>
+			  </div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
